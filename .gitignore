@@ -1,0 +1,26 @@
+## Gradle files
+.gradle/
+**/build/
+*.class
+
+## Terraform files
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.tfstate.lock.info
+terraform.tfvars
+terraform.tfvars.json
+.terraformrc
+terraform.rc
+
+## env files
+.env
+
+## VSC
+.vscode
