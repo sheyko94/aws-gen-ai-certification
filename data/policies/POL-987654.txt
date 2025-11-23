@@ -1,0 +1,22 @@
+Policy ID: POL-987654
+Product: Auto Policy
+Named Insured: Jane Doe
+
+Coverage:
+- Collision coverage applies
+- Comprehensive coverage applies
+
+Deductibles and Limits:
+- Collision deductible: $500
+- Comprehensive deductible: $250
+
+Rental Car:
+- Up to $40/day, maximum 10 days
+
+Towing:
+- Up to $200 per incident
+
+Exclusions:
+- Mechanical breakdown
+- Wear and tear
+- Racing or competitive driving

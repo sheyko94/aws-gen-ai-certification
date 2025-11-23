@@ -4,25 +4,31 @@
 
 ```mermaid
 flowchart LR
-  Client[Claims team / intake portal] -->|Upload claim documents| S3[Amazon S3\nClaim documents]
-  S3 -->|Event trigger| Orchestrator{Processing workflow\nTBD: e.g., Step Functions / SQS}
+  subgraph Sources
+    ClaimDocs["S3: Claim documents\n(claim uploads)"]
+    PolicyDocs["S3: Policy documents\n(kb/policies/…)"]
+  end
 
-  Orchestrator -->|Document understanding| BedrockDU[(Amazon Bedrock\nDoc understanding model)]
-  Orchestrator -->|Information extraction| BedrockIE[(Amazon Bedrock\nInfo extraction model)]
-  Orchestrator -->|Summary generation| BedrockSUM[(Amazon Bedrock\nSummary model)]
+  subgraph Processing
+    Lambda["Lambda: ClaimProcessorHandler\n(Java 17)"]
+  end
 
-  BedrockDU --> Orchestrator
-  BedrockIE --> Orchestrator
-  BedrockSUM --> Orchestrator
+  subgraph Bedrock
+    KB["Bedrock Knowledge Base\n(retrieves policy by ID)"]
+    Model["Bedrock Model\nClaude Sonnet 4.5 (Converse)"]
+  end
 
-  Orchestrator --> Response[Response generation\nTBD: routing/recipient]
-  Response -->|Optional| ResultsStore[(TBD: results store / case mgmt)]
+  ClaimDocs -->|S3 create event| Lambda
+  Lambda -->|Get object| ClaimDocs
+  Lambda -->|Retrieve policy| KB
+  PolicyDocs -.->|Ingest| KB
+  Lambda -->|Prompt with claim + policy| Model
+  Lambda -->|Write <key>_result.json| ClaimDocs
 ```
 
-- Storage for incoming claim documents: Amazon S3.
-- Processing workflow: still to be defined (placeholder orchestrator in the diagram).
-- Foundation model calls: Amazon Bedrock models selected for document understanding, information extraction, and summary generation.
-- Response generation: represented as a TBD step while recipient/delivery channel is decided.
+- Claim uploads land in an S3 bucket and trigger the Lambda.
+- Lambda reads the claim, pulls policy context via Bedrock Knowledge Base, calls Claude Sonnet 4.5 (Converse), and writes `<key>_result.json` back to the same bucket.
+- Policy documents live in a separate S3 bucket (ingested into the KB under `policies/`).
 
 ## Terraform
 

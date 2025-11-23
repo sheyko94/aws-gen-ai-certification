@@ -6,13 +6,6 @@ Date of Loss: 2024-03-15
 Loss Type: Auto - Collision
 Incident Location: 123 Main St, Springfield, IL
 
-Policy Details:
-- Coverage: Collision and comprehensive
-- Collision Deductible: $500
-- Rental Car: Up to $40/day, max 10 days
-- Towing: Up to $200 per incident
-- Exclusions: Mechanical breakdown, wear and tear
-
 Summary:
 Front-end collision at intersection. Airbags deployed. No injuries reported at the scene.
 

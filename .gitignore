@@ -24,3 +24,7 @@ terraform.rc
 
 ## VSC
 .vscode
+
+
+## IntelliJ
+.idea
