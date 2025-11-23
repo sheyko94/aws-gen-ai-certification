@@ -133,7 +133,7 @@ resource "aws_lambda_function" "policy_sync" {
   environment {
     variables = {
       KNOWLEDGE_BASE_ID = aws_bedrockagent_knowledge_base.policies.id
-      DATA_SOURCE_ID    = aws_bedrockagent_data_source.policy_s3.id
+      DATA_SOURCE_ID    = aws_bedrockagent_data_source.policy_s3.data_source_id
     }
   }
 }

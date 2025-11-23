@@ -39,6 +39,15 @@ data "aws_iam_policy_document" "kb_permissions" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid    = "BedrockEmbedModel"
+    effect = "Allow"
+    actions = [
+      "bedrock:InvokeModel"
+    ]
+    resources = [var.kb_embeddings_model_arn]
+  }
 }
 
 resource "aws_iam_role" "kb_role" {
