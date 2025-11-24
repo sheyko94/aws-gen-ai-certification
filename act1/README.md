@@ -1,4 +1,4 @@
-# aws-gen-ai-certification
+# aws-gen-ai-certification activity 1
 
 ## Architecture
 
